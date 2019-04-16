@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class GradesClient {
@@ -7,9 +8,11 @@ public class GradesClient {
     private static final int REMOVE = 3;
     private static final int DROP = 4;
     private static final int DISPLAY = 5;
-    private static final int SORT = 6;
-    private static final int AVERAGE = 7;
-    private static final int EXIT = 8;
+    private static final int PRINT = 6;
+    private static final int SORT = 7;
+    private static final int AVERAGE = 8;
+    private static final int HIGHESTSTUDENT = 9;
+    private static final int EXIT = 10;
 
     private static Scanner keyboard = new Scanner(System.in);
     private Grades grades = new Grades();
@@ -40,11 +43,17 @@ public class GradesClient {
                 case DISPLAY:
                     client.displayGrades();
                     break;
+                case PRINT:
+                    client.printBreakDownGrades();
+                    break;
                 case SORT:
                     client.displaySorted();
                     break;
                 case AVERAGE:
                     client.calcAverage();
+                    break;
+                case HIGHESTSTUDENT:
+                    client.getHighestStudent();
                     break;
                 default:
                     System.out.println("That choice is not valid " + choice);
@@ -89,7 +98,7 @@ public class GradesClient {
     private void addGrade() {
         System.out.print("Enter a name to add:");
         String name = keyboard.next();
-        System.out.println("Enter a grade to add:");
+        System.out.print("Enter a grade to add:");
         String number = keyboard.next();
         try {
             double grade = Double.parseDouble(number);
@@ -118,6 +127,14 @@ public class GradesClient {
             System.out.println("No grade," + grade + ", found to remove");
         }
 
+    }
+
+    private void printBreakDownGrades() {
+        grades.printGradeBreakdown();
+    }
+
+    private void getHighestStudent() {
+        System.out.println(grades.getStudentWithHighestGrade());
     }
 
     private void dropLowest() {

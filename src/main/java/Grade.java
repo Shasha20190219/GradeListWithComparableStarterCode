@@ -35,10 +35,10 @@ public class Grade implements Comparable<Grade> {
 
     public String toString() {
         // TODO return a useful representation of the object, including the name and grade fields
-        return this.student +"'s grade is " + this.grade;
+        return this.student +": " + this.grade;
     }
 
-    @Override
+//    @Override
     public int compareTo(Grade other) {
         // TODO implement compareTo.
         // Don't forget anything else that might be missing in this class for this function to be called correctly.

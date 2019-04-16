@@ -17,7 +17,6 @@ public class Grades {
         Scanner scan = new Scanner(new File(fileName));
         while (scan.hasNextLine()) {
             String student = scan.next();
-            String sybol = scan.next();
             double grade = scan.nextDouble();
             Grade ele = new Grade(student, grade);
             grades.add(ele);
@@ -43,9 +42,11 @@ public class Grades {
         return minGrade;
     }
 
-    public void addGrade(Grade grade) {
+   public void addGrade(Grade grade) {
         grades.add(grade);
     }
+
+
 
 //    public boolean removeAllGrades(Grade grade) {
 //        return grades.removeAll(Collections.singleton(grade));
@@ -106,7 +107,7 @@ public class Grades {
                 highestStudents = grades.get(i).getStudent();
             }
         }
-        return highestStudents;
+        return highestStudents + max;
     }
 
     // Simplest version of toString() for this method
