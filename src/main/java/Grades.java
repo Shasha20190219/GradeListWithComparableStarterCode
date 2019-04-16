@@ -3,55 +3,70 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Grades {
-    private List<Double> grades;
+    private List<Grade> grades;
 
     public Grades() {
         grades = new ArrayList<>();
     }
 
-    public List<Double> getGrades() {
+    public List<Grade> getGrades() {
         return grades;
     }
 
     public void readGrades(String fileName) throws FileNotFoundException {
         Scanner scan = new Scanner(new File(fileName));
         while (scan.hasNextLine()) {
-            grades.add(Double.parseDouble(scan.nextLine()));
+            String student = scan.next();
+            String sybol = scan.next();
+            double grade = scan.nextDouble();
+            Grade ele = new Grade(student, grade);
+            grades.add(ele);
         }
     }
 
     public double calcAverage() {
         double total = 0.0;
-        for (double grade : grades) {
-            total += grade;
+        for (Grade ele : grades) {
+            total += ele.getGrade();
         }
         return total / grades.size();
     }
 
     public double dropLowest() {
         double minGrade = Double.MAX_VALUE;
-        for (double grade : grades) {
-            if (grade < minGrade) {
-                minGrade = grade;
+        for (Grade ele : grades) {
+            if (ele.getGrade() < minGrade) {
+                minGrade = ele.getGrade();
             }
         }
         grades.remove(minGrade);
         return minGrade;
     }
 
-    public void addGrade(double grade) {
+    public void addGrade(Grade grade) {
         grades.add(grade);
     }
 
+//    public boolean removeAllGrades(Grade grade) {
+//        return grades.removeAll(Collections.singleton(grade));
+//    }
     public boolean removeAllGrades(double grade) {
-        return grades.removeAll(Collections.singleton(grade));
+        boolean flag = false;
+        for (int i = 0; i < grades.size(); i++) {
+            if(grades.get(i).getGrade() == grade) {
+                grades.remove(i);
+                flag = true;
+
+            }
+        }
+        return flag;
     }
 
     // Collections.sort sorts the input list as a side-effect, which I didn't prefer
     // So I created a copy and sorted that.
     // You could also just sort grades.
     public void printSortedGrades() {
-        List<Double> gradesCopy = new ArrayList<>(grades);
+        List<Grade> gradesCopy = new ArrayList<>(grades);
         Collections.sort(gradesCopy);
 
         System.out.println(gradesCopy);
@@ -60,17 +75,44 @@ public class Grades {
     public void printGradeBreakdown() {
         // TODO print the number of students who got A, B, C, D, and F
         // e.g. A: 7, B: 5, C: 2, D: 1, F: 1
+        int cntA = 0;
+        int cntB = 0;
+        int cntC = 0;
+        int cntD = 0;
+        int cntF = 0;
+        for (Grade grade: grades) {
+            if (grade.toLetterGrade().equals("A")) {
+                cntA++;
+            } else if (grade.toLetterGrade().equals("B")) {
+                cntB++;
+            } else if (grade.toLetterGrade().equals("C")) {
+                cntC++;
+            } else if (grade.toLetterGrade().equals("D")) {
+                cntD++;
+            } else if (grade.toLetterGrade().equals("F")) {
+                cntF++;
+            }
+        }
+        System.out.println("A: " + cntA + ", B: " + cntB + ", C: " + cntC + ", D: " + cntD + ", F: " + cntF);
     }
 
     public String getStudentWithHighestGrade() {
         // TODO return the student who got the highest grade
-        return null;
+        double max = Double.MIN_VALUE;
+        String highestStudents = "";
+        for (int i = 0; i < grades.size(); i++) {
+            if(grades.get(i).getGrade() > max) {
+                max = grades.get(i).getGrade();
+                highestStudents = grades.get(i).getStudent();
+            }
+        }
+        return highestStudents;
     }
 
     // Simplest version of toString() for this method
-//    public String toString() {
-//        return grades.toString();
-//    }
+    //    public String toString() {
+    //        return grades.toString();
+    //    }
 
     // Using StringBuilder rather than less efficient string concatentation
     public String toString() {

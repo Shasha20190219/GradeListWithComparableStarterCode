@@ -62,9 +62,11 @@ public class GradesClient {
         System.out.println("3. Remove all grades");
         System.out.println("4. Drop lowest grade");
         System.out.println("5. Display grades");
-        System.out.println("6. Sort grades");
-        System.out.println("7. Calculate average");
-        System.out.println("8. Exit");
+        System.out.println("6. Print grade breakdown");
+        System.out.println("7. Sort grades");
+        System.out.println("8. Calculate average");
+        System.out.println("9. Find student with the highest grade");
+        System.out.println("10. Exit");
 
         System.out.println("*************************************");
         System.out.println();
@@ -85,12 +87,15 @@ public class GradesClient {
     }
 
     private void addGrade() {
-        System.out.print("Enter a grade to add:");
+        System.out.print("Enter a name to add:");
+        String name = keyboard.next();
+        System.out.println("Enter a grade to add:");
         String number = keyboard.next();
         try {
             double grade = Double.parseDouble(number);
             System.out.println("Adding grade " + grade);
-            grades.addGrade(grade);
+            Grade other = new Grade(name, grade);
+            grades.addGrade(other);
         } catch (NumberFormatException e) {
             System.out.println("You did not enter a valid grade: " + e.getMessage());
         }
