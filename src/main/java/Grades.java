@@ -74,8 +74,6 @@ public class Grades {
     }
 
     public void printGradeBreakdown() {
-        // TODO print the number of students who got A, B, C, D, and F
-        // e.g. A: 7, B: 5, C: 2, D: 1, F: 1
         int cntA = 0;
         int cntB = 0;
         int cntC = 0;
@@ -98,7 +96,6 @@ public class Grades {
     }
 
     public String getStudentWithHighestGrade() {
-        // TODO return the student who got the highest grade
         double max = Double.MIN_VALUE;
         String highestStudents = "";
         for (int i = 0; i < grades.size(); i++) {
