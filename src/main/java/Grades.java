@@ -32,13 +32,15 @@ public class Grades {
     }
 
     public double dropLowest() {
-        double minGrade = Double.MAX_VALUE;
+        Grade lowest = grades.get(0);
+        double minGrade = lowest.getGrade();
         for (Grade ele : grades) {
             if (ele.getGrade() < minGrade) {
+                lowest = ele;
                 minGrade = ele.getGrade();
             }
         }
-        grades.remove(minGrade);
+        grades.remove(lowest);
         return minGrade;
     }
 
@@ -57,6 +59,7 @@ public class Grades {
             if(grades.get(i).getGrade() == grade) {
                 grades.remove(i);
                 flag = true;
+                i--;
 
             }
         }
